@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TALHORA — Wireframe Final v3</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap');
+
+  :root {
+    --cream: #F5F0E8;
+    --warm-white: #FAF8F4;
+    --dark: #1A1714;
+    --mid: #6C6660;
+    --light: #9C9490;
+    --accent: #C7A04B;
+    --border: #E0D8CC;
+    --atelier-bg: #1E1A16;
+    --sand: #EDE6DA;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: #EDEAE4;
+    color: var(--dark);
+    font-weight: 300;
+    font-size: 13px;
+  }
+
+  .page-label {
+    text-align: center;
+    padding: 14px;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #999;
+    background: #E0DDD8;
+    border-bottom: 1px solid #CCC8C0;
+  }
+
+  .view-switcher {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+    background: #E0DDD8;
+    border-bottom: 1px solid #CCC8C0;
+    gap: 0;
+  }
+  .view-btn {
+    padding: 8px 20px;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    background: transparent;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--mid);
+  }
+  .view-btn.active { background: var(--dark); color: var(--cream); border-color: var(--dark); }
+
+  .frame {
+    max-width: 1280px;
+    margin: 24px auto;
+    background: var(--warm-white);
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+  .frame#view-mobile { max-width: 400px; }
+  #view-product-frame { display: none; max-width: 1280px; margin: 0 auto 24px; background: var(--warm-white); box-shadow: 0 4px 40px rgba(0,0,0,0.12); }
+
+  /* ─── NAV — solo anagrama ─── */
+  nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: rgba(250,248,244,0.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-anagram {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-anagram img { height: 40px; width: auto; display: block; }
+  .nav-menu-icon {
+    position: absolute;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+  }
+  .nav-menu-icon span { width: 20px; height: 1px; background: var(--dark); display: block; }
+
+  /* ─── HERO — texto debajo, nunca encima ─── */
+  .hero-image {
+    width: 100%;
+    height: 64vh;
+    min-height: 440px;
+    max-height: 620px;
+    background: linear-gradient(160deg, #2A2018 0%, #0D0A08 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255,255,255,0.012) 3px, rgba(255,255,255,0.012) 4px);
+  }
+  .hero-image-label {
+    font-size: 9px;
+    color: rgba(255,255,255,0.18);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 2.2;
+    position: relative;
+  }
+  .hero-carousel-dots {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+  }
+  .hero-dot { width: 22px; height: 2px; background: rgba(255,255,255,0.3); }
+  .hero-dot.active { background: rgba(255,255,255,0.8); width: 32px; }
+
+  .hero-copy {
+    text-align: center;
+    padding: 36px 24px 40px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .hero-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--dark);
+    margin-bottom: 16px;
+  }
+  .hero-line {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.7;
+    max-width: 440px;
+    margin: 0 auto 28px;
+  }
+  .btn-primary {
+    display: inline-block;
+    border: 1px solid var(--dark);
+    color: var(--dark);
+    padding: 13px 32px;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 400;
+    cursor: pointer;
+    background: transparent;
+  }
+
+  /* ─── MENSAJE DE MARCA ─── */
+  .brand-message {
+    padding: 64px 24px;
+    text-align: center;
+    background: var(--sand);
+    border-bottom: 1px solid var(--border);
+  }
+  .brand-message-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    color: var(--dark);
+    line-height: 1.5;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .brand-message-sub {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--light);
+    margin-top: 22px;
+  }
+
+  /* ─── CATEGORIA ─── */
+  .category { padding: 64px 0 0; }
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 48px 28px;
+  }
+  .category-title {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--light);
+    white-space: nowrap;
+  }
+  .category-line { flex: 1; height: 1px; background: var(--border); }
+  .category-view-all {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  /* CATEGORY HERO: imagen + texto AL LADO, nunca encima */
+  .category-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 0 48px 16px;
+    align-items: stretch;
+  }
+  .category-intro-image {
+    aspect-ratio: 4/5;
+    background: linear-gradient(160deg, #C8BCA8 0%, #A89070 100%);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .category-intro-image-label {
+    font-size: 9px;
+    color: rgba(92,80,64,0.35);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 2;
+  }
+  .category-intro-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px;
+    background: var(--warm-white);
+  }
+  .category-intro-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--dark);
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+  }
+  .category-intro-desc {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.7;
+    margin-bottom: 12px;
+    max-width: 320px;
+  }
+  .category-intro-pull {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-style: italic;
+    color: var(--accent);
+    margin-bottom: 28px;
+  }
+  .category-intro-cta {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dark);
+    border: 1px solid var(--dark);
+    padding: 11px 26px;
+    width: fit-content;
+    cursor: pointer;
+  }
+
+  /* PRODUCT GRID */
+  .product-grid {
+    padding: 24px 48px 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .product-card { cursor: pointer; }
+  .product-card-image {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: linear-gradient(160deg, #E0D4C0 0%, #C8B89C 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .product-card-image-label {
+    font-size: 8px;
+    color: rgba(92,80,64,0.3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .product-limited-badge {
+    position: absolute;
+    top: 10px; left: 10px;
+    font-size: 7px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .product-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--dark);
+    margin-bottom: 3px;
+  }
+  .product-card-material {
+    font-size: 8px;
+    color: var(--light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .product-card-price-row { display: flex; align-items: baseline; justify-content: space-between; }
+  .product-card-price { font-size: 14px; color: var(--mid); }
+  .product-card-stock { font-size: 9px; color: var(--light); }
+  .product-card-stock.low { color: var(--accent); }
+
+  /* EDITORIAL STRIP — imagenes limpias, sin texto encima */
+  .editorial-strip {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4px;
+  }
+  .editorial-main {
+    aspect-ratio: 3/2;
+    background: linear-gradient(135deg, #C8BCA8 0%, #9C8C76 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .editorial-side {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 4px;
+  }
+  .editorial-sub {
+    background: linear-gradient(135deg, #D4C8B4 0%, #B0A088 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .editorial-label {
+    font-size: 8px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  /* DESTACADO VICTORIA — imagen a un lado, texto al lado, nunca encima */
+  .highlight {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 64px;
+    background: var(--dark);
+  }
+  .highlight-image {
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #2A2018 0%, #14100A 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .highlight-image-label {
+    font-size: 8px;
+    color: rgba(255,255,255,0.15);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 2;
+  }
+  .highlight-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 56px 48px;
+  }
+  .highlight-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(245,240,232,0.85);
+    line-height: 1.55;
+    margin-bottom: 18px;
+  }
+  .highlight-author {
+    font-size: 9px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* SECTION GENERIC */
+  .section { padding: 80px 48px; }
+  .section-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 300;
+    color: var(--dark);
+    line-height: 1.15;
+  }
+
+  /* ATELIER — texto al lado del bloque visual */
+  .atelier-section { background: var(--atelier-bg); padding: 80px 48px; }
+  .atelier-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 40px;
+    align-items: center;
+  }
+  .atelier-text-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.25;
+    margin-bottom: 20px;
+  }
+  .atelier-text-body {
+    font-size: 14px;
+    color: rgba(245,240,232,0.55);
+    line-height: 1.85;
+  }
+  .atelier-pull {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-style: italic;
+    color: rgba(245,240,232,0.8);
+    line-height: 1.5;
+    padding-left: 18px;
+    border-left: 1px solid var(--accent);
+  }
+  .atelier-video {
+    width: 100%;
+    aspect-ratio: 21/9;
+    background: linear-gradient(160deg, #1A140E 0%, #0A0806 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .atelier-video-tag {
+    position: absolute;
+    top: 18px; left: 24px;
+    font-size: 8px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 4px 10px;
+  }
+  .atelier-video-label {
+    font-size: 9px;
+    color: rgba(255,255,255,0.15);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 2;
+  }
+
+  /* MATERIALS + PILLARS */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-bottom: 56px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .pillar {
+    text-align: center;
+  }
+  .pillar-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .pillar-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    color: var(--dark);
+    font-weight: 300;
+    line-height: 1.3;
+  }
+  .materials-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    margin-top: 40px;
+  }
+  .material-item { border-top: 1px solid var(--border); padding-top: 20px; }
+  .material-swatch {
+    width: 100%;
+    aspect-ratio: 3/2;
+    background: linear-gradient(160deg, #E8DDD0 0%, #D0C4B0 100%);
+    margin-bottom: 14px;
+  }
+  .material-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-weight: 300;
+    color: var(--dark);
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+  .material-line { font-size: 11px; color: var(--mid); line-height: 1.6; }
+
+  /* LOOMS */
+  .looms { background: var(--cream); padding: 80px 48px; }
+  .looms-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .looms-image {
+    aspect-ratio: 4/5;
+    background: linear-gradient(160deg, #C8BCA8 0%, #968470 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .looms-image-label { font-size: 9px; color: rgba(255,255,255,0.3); letter-spacing: 0.12em; text-transform: uppercase; text-align: center; line-height: 2; }
+  .looms-body { font-size: 14px; color: var(--mid); line-height: 1.85; margin-bottom: 20px; }
+  .looms-pull {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--accent);
+    padding-left: 16px;
+    border-left: 1px solid var(--accent);
+  }
+
+  /* HERITAGE */
+  .heritage { padding: 88px 48px; border-top: 1px solid var(--border); }
+  .heritage-layout { display: grid; grid-template-columns: 440px 1fr; gap: 56px; }
+  .heritage-image {
+    aspect-ratio: 4/5;
+    background: linear-gradient(160deg, #D0C4B4 0%, #A09080 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .heritage-image-label { font-size: 9px; color: rgba(255,255,255,0.35); letter-spacing: 0.12em; text-transform: uppercase; text-align: center; line-height: 2; }
+  .heritage-body { font-size: 14px; color: var(--mid); line-height: 1.85; margin-bottom: 18px; }
+  .heritage-clients { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .heritage-clients-label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--light); margin-bottom: 14px; }
+  .heritage-clients-list { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+  .heritage-client { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--dark); font-weight: 300; }
+
+  /* SHOWROOMS */
+  .showrooms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
+  .showroom-image {
+    width: 100%; aspect-ratio: 16/9;
+    background: linear-gradient(160deg, #DDD0C0 0%, #C4B09C 100%);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+  }
+  .showroom-image-label { font-size: 8px; color: rgba(92,80,64,0.3); letter-spacing: 0.1em; text-transform: uppercase; }
+  .showroom-city { font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 4px; }
+  .showroom-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; color: var(--dark); margin-bottom: 10px; }
+  .showroom-detail { font-size: 10px; color: var(--mid); line-height: 1.9; }
+
+  /* ACCESO + CONTACTO */
+  .bottom-strip { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border); }
+  .acceso { background: var(--dark); padding: 64px 48px; }
+  .acceso-eyebrow { font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 10px; }
+  .acceso-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; color: var(--cream); margin-bottom: 10px; line-height: 1.2; }
+  .acceso-sub { font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.7; margin-bottom: 26px; max-width: 380px; }
+  .acceso-form { display: flex; max-width: 400px; margin-bottom: 12px; }
+  .acceso-input {
+    flex: 1; background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15); border-right: none;
+    padding: 12px 16px; font-size: 11px; font-family: 'Montserrat', sans-serif;
+    color: var(--cream); outline: none;
+  }
+  .acceso-input::placeholder { color: rgba(255,255,255,0.2); }
+  .acceso-btn {
+    background: var(--cream); color: var(--dark); border: none;
+    padding: 12px 22px; font-size: 8px; letter-spacing: 0.15em;
+    text-transform: uppercase; font-family: 'Montserrat', sans-serif;
+    font-weight: 500; cursor: pointer; white-space: nowrap;
+  }
+  .acceso-gdpr { font-size: 8px; color: rgba(255,255,255,0.18); line-height: 1.6; max-width: 400px; }
+  .contacto { background: var(--cream); padding: 64px 48px; border-left: 1px solid var(--border); }
+  .contacto-title { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--light); margin-bottom: 28px; }
+  .contacto-row { display: flex; align-items: flex-start; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--border); }
+  .contacto-row:last-child { border-bottom: none; }
+  .contacto-icon { width: 38px; height: 38px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--mid); flex-shrink: 0; }
+  .contacto-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dark); font-weight: 500; margin-bottom: 3px; }
+  .contacto-desc { font-size: 10px; color: var(--mid); line-height: 1.5; margin-bottom: 6px; }
+  .contacto-cta { font-size: 8px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; }
+
+  /* FOOTER */
+  footer { background: var(--dark); padding: 28px 48px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-anagram {
+    width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;
+    filter: brightness(0) invert(1) opacity(0.6);
+  }
+  .footer-anagram img { height: 38px; width: auto; display: block; }
+  .footer-center { display: flex; gap: 26px; }
+  .footer-link { font-size: 8px; color: rgba(255,255,255,0.2); letter-spacing: 0.1em; text-transform: uppercase; }
+  .footer-right { font-size: 8px; color: rgba(255,255,255,0.25); letter-spacing: 0.1em; text-transform: uppercase; text-align: right; line-height: 2; }
+
+  /* ─── PRODUCT PAGE ─── */
+  .pp-nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 48px; background: rgba(250,248,244,0.96); border-bottom: 1px solid var(--border); }
+  .back-btn { display: flex; align-items: center; gap: 8px; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); cursor: pointer; }
+  .pp-layout { display: grid; grid-template-columns: 1fr 480px; min-height: 80vh; }
+  .pp-gallery { background: linear-gradient(160deg, #E0D4C0 0%, #C8B89C 100%); position: relative; display: flex; align-items: center; justify-content: center; min-height: 600px; }
+  .pp-gallery-label { font-size: 9px; color: rgba(92,80,64,0.3); letter-spacing: 0.12em; text-transform: uppercase; text-align: center; line-height: 2.2; }
+  .pp-thumbs { position: absolute; bottom: 24px; left: 24px; display: flex; gap: 8px; }
+  .pp-thumb { width: 52px; height: 64px; background: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.6); }
+  .pp-thumb.active { border-color: var(--dark); background: rgba(255,255,255,0.7); }
+  .pp-info { padding: 56px 48px; background: var(--warm-white); border-left: 1px solid var(--border); }
+  .pp-breadcrumb { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--light); margin-bottom: 16px; }
+  .pp-name { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--dark); line-height: 1.1; margin-bottom: 6px; }
+  .pp-material { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); margin-bottom: 20px; }
+  .pp-price { font-size: 28px; color: var(--dark); font-family: 'Cormorant Garamond', serif; font-weight: 300; margin-bottom: 8px; }
+  .pp-stock { font-size: 10px; color: var(--light); margin-bottom: 28px; }
+  .pp-divider { height: 1px; background: var(--border); margin: 24px 0; }
+  .pp-desc { font-size: 12px; color: var(--mid); line-height: 1.8; margin-bottom: 12px; }
+  .pp-pull { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-style: italic; color: var(--accent); line-height: 1.55; padding-left: 14px; border-left: 1px solid var(--accent); margin-bottom: 32px; }
+  .btn-buy { width: 100%; background: var(--dark); color: var(--cream); border: none; padding: 16px; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500; cursor: pointer; margin-bottom: 10px; }
+  .pp-details { margin-top: 24px; }
+  .pp-detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .pp-detail-label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); }
+  .pp-detail-value { font-size: 10px; color: var(--mid); text-align: right; }
+
+  /* annotation */
+  .anno { display:inline-block; background:#4A7A5A; color:white; font-size:8px; padding:2px 7px; letter-spacing:0.08em; text-transform:uppercase; margin:0 0 0 48px; font-weight:500; }
+</style>
+</head>
+<body>
+
+<div class="page-label">VICTORIA DE TALHORA — Wireframe Final v3 · Logo y dorado de marca aplicados</div>
+
+<div class="view-switcher">
+  <button class="view-btn active" onclick="showView('home')">Pagina principal</button>
+  <button class="view-btn" onclick="showView('product')">Ficha de producto</button>
+</div>
+
+<div class="frame" id="view-home-frame">
+
+  <!-- NAV solo anagrama -->
+  <nav>
+    <div class="nav-anagram"><img src="data:image/png;base64,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" alt="Victoria de Talhora"></div>
+    <div class="nav-menu-icon"><span></span><span></span><span></span></div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero-image">
+    <div class="hero-image-label">Imagen vertical / carousel horizontal<br>Telar · Pieza · Movimiento<br>Sin texto encima</div>
+    <div class="hero-carousel-dots"><div class="hero-dot active"></div><div class="hero-dot"></div><div class="hero-dot"></div></div>
+  </div>
+  <div class="hero-copy">
+    <div class="hero-eyebrow">Altea, Espana</div>
+    <div class="hero-brand">Victoria de Talhora</div>
+    <div class="hero-line">Victoria de Talhora disena y teje chales, fulares, mantas y complementos de la mas alta calidad utilizando hilos 100% naturales.</div>
+    <button class="btn-primary">Ver coleccion</button>
+  </div>
+
+  <!-- MENSAJE DE MARCA -->
+  <div class="brand-message">
+    <div class="brand-message-text">Toda una vida tejiendo en nuestros propios telares, de manera tradicional, terminado a mano.</div>
+    <div class="brand-message-sub">Ediciones limitadas · Hechas en Espana</div>
+  </div>
+
+  <!-- ── MANTAS ── -->
+  <div class="category">
+    <div class="category-header"><span class="category-title">Mantas</span><div class="category-line"></div><span class="category-view-all">Ver todos</span></div>
+    <div class="category-intro">
+      <div class="category-intro-image"><div class="category-intro-image-label">Imagen vertical<br>Manta en interior</div></div>
+      <div class="category-intro-text">
+        <div class="category-intro-name">Mantas</div>
+        <div class="category-intro-desc">Cachemira, seda y pelo de camello. O boucle de baby alpaca.</div>
+        <div class="category-intro-pull">Para quedarse.</div>
+        <div class="category-intro-cta">Ver coleccion</div>
+      </div>
+    </div>
+    <div class="product-grid">
+      <div class="product-card"><div class="product-card-image"><span class="product-limited-badge">Limitada</span><div class="product-card-image-label">Producto</div></div><div class="product-card-name">Manta Tres Fibras</div><div class="product-card-material">Cachemira · Seda · Camello</div><div class="product-card-price-row"><span class="product-card-price">€ 680</span><span class="product-card-stock">18 de 100</span></div></div>
+      <div class="product-card"><div class="product-card-image"><span class="product-limited-badge">Limitada</span><div class="product-card-image-label">Producto</div></div><div class="product-card-name">Manta Boucle</div><div class="product-card-material">Baby alpaca</div><div class="product-card-price-row"><span class="product-card-price">€ 580</span><span class="product-card-stock low">7 de 80</span></div></div>
+      <div class="product-card"><div class="product-card-image"><span class="product-limited-badge">Limitada</span><div class="product-card-image-label">Producto</div></div><div class="product-card-name">Manta Seda</div><div class="product-card-material">Seda y Cachemira</div><div class="product-card-price-row"><span class="product-card-price">€ 720</span><span class="product-card-stock">24 de 60</span></div></div>
+      <div class="product-card"><div class="product-card-image"><span class="product-limited-badge">Agotada</span><div class="product-card-image-label">Producto</div></div><div class="product-card-name">Manta Camello</div><div class="product-card-material">Pelo de camello</div><div class="product-card-price-row"><span class="product-card-price">€ 620</span><span class="product-card-stock" style="color:var(--accent)">Preventa</span></div></div>
+    </div>
+    <!-- editorial limpio -->
+    <div class="editorial-strip">
+      <div class="editorial-main"><div class="editorial-label">Editorial mantas<br>imagen principal</div></div>
+      <div class="editorial-side">
+        <div class="editorial-sub"><div class="editorial-label">Detalle</div></div>
+        <div class="editorial-sub"><div class="editorial-label">En uso</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── COLLARES ── -->
+  <div class="category">
+    <div class="category-header"><span class="category-title">Collares de tejido</span><div class="category-line"></div><span class="category-view-all">Ver todos</span></div>
+    <div class="category-intro">
+      <div class="category-intro-text" style="border-right:1px solid var(--border)">
+        <div class="category-intro-name">Collares</div>
+        <div class="category-intro-desc">Hilado tubular de seda japonesa, lana o cashmere y seda.</div>
+        <div class="category-intro-pull">Abrigan el cuello.</div>
+        <div class="category-intro-cta">Ver coleccion</div>
+      </div>
+      <div class="category-intro-image" style="background:linear-gradient(160deg,#B8ACA0 0%,#907870 100%)"><div class="category-intro-image-label">Imagen vertical<br>Collar puesto</div></div>
+    </div>
+    <div class="product-grid">
+      <div class="product-card"><div class="product-card-image" style="background:linear-gradient(160deg,#D8CCBC 0%,#B8A890 100%)"><span class="product-limited-badge">Limitada</span><div class="product-card-image-label">Producto</div></div><div class="product-card-name">Collar Seda Japonesa</div><div class="product-card-material">Seda tubular</div><div class="product-card-price-row"><span class="product-card-price">€ 180</span><span class="product-card-stock">32 de 100</span></div></div>
+      <div class="product-card"><div class="product-card-image" style="background:linear-gradient(160deg,#D8CCBC 0%,#B8A890 100%)"><span class="product-limited-badge">Limitada</span><div class="product-card-image-label">Producto</div></div><div class="product-card-name">Collar Cachemira</div><div class="product-card-material">Cachemira · Seda</div><div class="product-card-price-row"><span class="product-card-price">€ 220</span><span class="product-card-stock low">4 de 80</span></div></div>
+      <div class="product-card"><div class="product-card-image" style="background:linear-gradient(160deg,#D8CCBC 0%,#B8A890 100%)"><span class="product-limited-badge">Limitada</span><div class="product-card-image-label">Producto</div></div><div class="product-card-name">Collar Lana</div><div class="product-card-material">Lana de alta calidad</div><div class="product-card-price-row"><span class="product-card-price">€ 160</span><span class="product-card-stock">45 de 100</span></div></div>
+      <div class="product-card"><div class="product-card-image" style="background:linear-gradient(160deg,#D8CCBC 0%,#B8A890 100%)"><span class="product-limited-badge">Limitada</span><div class="product-card-image-label">Producto</div></div><div class="product-card-name">Collar Seda Color</div><div class="product-card-material">Seda japonesa</div><div class="product-card-price-row"><span class="product-card-price">€ 195</span><span class="product-card-stock">29 de 100</span></div></div>
+    </div>
+    <div class="editorial-strip">
+      <div class="editorial-main" style="background:linear-gradient(135deg,#BCB0A0 0%,#8C7C68 100%)"><div class="editorial-label">Editorial collares<br>primer plano cuello</div></div>
+      <div class="editorial-side">
+        <div class="editorial-sub" style="background:linear-gradient(135deg,#C8BCA8 0%,#A09078 100%)"><div class="editorial-label">Detalle tejido</div></div>
+        <div class="editorial-sub" style="background:linear-gradient(135deg,#C8BCA8 0%,#A09078 100%)"><div class="editorial-label">Video corto</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DESTACADO VICTORIA — imagen al lado, texto al lado ── -->
+  <div class="highlight">
+    <div class="highlight-image"><div class="highlight-image-label">Imagen<br>Victoria o cliente<br>natural, sin pose</div></div>
+    <div class="highlight-text">
+      <div class="highlight-quote">"Hemos visto como volvian a nosotros ano tras ano, y les estamos eternamente agradecidos por ello."</div>
+      <div class="highlight-author">Victoria Munoz, Altea</div>
+    </div>
+  </div>
+
+  <!-- ── CHALES ── -->
+  <div class="category">
+    <div class="category-header"><span class="category-title">Chales</span><div class="category-line"></div><span class="category-view-all">Ver todos</span></div>
+    <div class="category-intro">
+      <div class="category-intro-image" style="background:linear-gradient(160deg,#C4B8A0 0%,#A89878 100%)"><div class="category-intro-image-label">Imagen vertical<br>Chal sobre persona</div></div>
+      <div class="category-intro-text">
+        <div class="category-intro-name">Chales</div>
+        <div class="category-intro-desc">Seda y cashmere combinadas.</div>
+        <div class="category-intro-pull">La seda da caida, el cashmere calor.</div>
+        <div class="category-intro-cta">Ver coleccion</div>
+      </div>
+    </div>
+    <div class="product-grid">
+      <div class="product-card"><div class="product-card-image" style="background:linear-gradient(160deg,#DCD0BC 0%,#C0B09A 100%)"><span class="product-limited-badge">Limitada</span><div class="product-card-image-label">Producto</div></div><div class="product-card-name">Chal Seda Cachemira</div><div class="product-card-material">Seda · Cachemira</div><div class="product-card-price-row"><span class="product-card-price">€ 380</span><span class="product-card-stock">41 de 100</span></div></div>
+      <div class="product-card"><div class="product-card-image" style="background:linear-gradient(160deg,#DCD0BC 0%,#C0B09A 100%)"><span class="product-limited-badge">Limitada</span><div class="product-card-image-label">Producto</div></div><div class="product-card-name">Chal Fantasia</div><div class="product-card-material">Hilo exclusivo</div><div class="product-card-price-row"><span class="product-card-price">€ 420</span><span class="product-card-stock low">6 de 60</span></div></div>
+      <div class="product-card"><div class="product-card-image" style="background:linear-gradient(160deg,#DCD0BC 0%,#C0B09A 100%)"><span class="product-limited-badge">Limitada</span><div class="product-card-image-label">Producto</div></div><div class="product-card-name">Chal Cachemira</div><div class="product-card-material">Cachemira 100%</div><div class="product-card-price-row"><span class="product-card-price">€ 360</span><span class="product-card-stock">52 de 100</span></div></div>
+      <div class="product-card"><div class="product-card-image" style="background:linear-gradient(160deg,#DCD0BC 0%,#C0B09A 100%)"><span class="product-limited-badge">Limitada</span><div class="product-card-image-label">Producto</div></div><div class="product-card-name">Chal Seda</div><div class="product-card-material">Seda natural</div><div class="product-card-price-row"><span class="product-card-price">€ 310</span><span class="product-card-stock">38 de 80</span></div></div>
+    </div>
+    <div class="editorial-strip">
+      <div class="editorial-main" style="background:linear-gradient(135deg,#C4B8A0 0%,#988868 100%)"><div class="editorial-label">Editorial chales<br>exterior, movimiento</div></div>
+      <div class="editorial-side">
+        <div class="editorial-sub" style="background:linear-gradient(135deg,#D0C4B0 0%,#A89878 100%)"><div class="editorial-label">Sobre persona</div></div>
+        <div class="editorial-sub" style="background:linear-gradient(135deg,#D0C4B0 0%,#A89878 100%)"><div class="editorial-label">Detalle color</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FULARES ── -->
+  <div class="category">
+    <div class="category-header"><span class="category-title">Fulares</span><div class="category-line"></div><span class="category-view-all">Ver todos</span></div>
+    <div class="category-intro">
+      <div class="category-intro-text" style="border-right:1px solid var(--border)">
+        <div class="category-intro-name">Fulares</div>
+        <div class="category-intro-desc">Ligeros, con caida. Seda y cashmere en una amplia gama de color.</div>
+        <div class="category-intro-cta">Ver coleccion</div>
+      </div>
+      <div class="category-intro-image" style="background:linear-gradient(160deg,#BCC0A8 0%,#889078 100%)"><div class="category-intro-image-label">Imagen vertical<br>Fular en movimiento</div></div>
+    </div>
+    <div class="product-grid">
+      <div class="product-card"><div class="product-card-image" style="background:linear-gradient(160deg,#D4D8C8 0%,#B8C0A4 100%)"><span class="product-limited-badge">Limitada</span><div class="product-card-image-label">Producto</div></div><div class="product-card-name">Fular Seda</div><div class="product-card-material">Seda natural</div><div class="product-card-price-row"><span class="product-card-price">€ 210</span><span class="product-card-stock">62 de 150</span></div></div>
+      <div class="product-card"><div class="product-card-image" style="background:linear-gradient(160deg,#D4D8C8 0%,#B8C0A4 100%)"><span class="product-limited-badge">Limitada</span><div class="product-card-image-label">Producto</div></div><div class="product-card-name">Fular Seda Cachemira</div><div class="product-card-material">Seda · Cachemira</div><div class="product-card-price-row"><span class="product-card-price">€ 260</span><span class="product-card-stock">28 de 100</span></div></div>
+      <div class="product-card"><div class="product-card-image" style="background:linear-gradient(160deg,#D4D8C8 0%,#B8C0A4 100%)"><span class="product-limited-badge">Limitada</span><div class="product-card-image-label">Producto</div></div><div class="product-card-name">Fular Color</div><div class="product-card-material">Seda estampada</div><div class="product-card-price-row"><span class="product-card-price">€ 230</span><span class="product-card-stock low">9 de 120</span></div></div>
+      <div class="product-card"><div class="product-card-image" style="background:linear-gradient(160deg,#D4D8C8 0%,#B8C0A4 100%)"><span class="product-limited-badge">Limitada</span><div class="product-card-image-label">Producto</div></div><div class="product-card-name">Fular Ligero</div><div class="product-card-material">Seda fina</div><div class="product-card-price-row"><span class="product-card-price">€ 190</span><span class="product-card-stock">71 de 150</span></div></div>
+    </div>
+    <div class="editorial-strip">
+      <div class="editorial-main" style="background:linear-gradient(135deg,#BCC0A8 0%,#888068 100%)"><div class="editorial-label">Editorial fulares<br>viento, color</div></div>
+      <div class="editorial-side">
+        <div class="editorial-sub" style="background:linear-gradient(135deg,#C8C8B4 0%,#A0A078 100%)"><div class="editorial-label">Movimiento</div></div>
+        <div class="editorial-sub" style="background:linear-gradient(135deg,#C8C8B4 0%,#A0A078 100%)"><div class="editorial-label">Sobre piel</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ PROFUNDIDAD ════ -->
+
+  <!-- ATELIER -->
+  <div class="atelier-section">
+    <div class="atelier-top">
+      <div>
+        <div class="section-eyebrow" style="color:rgba(139,111,71,0.9)">El atelier</div>
+        <div class="atelier-text-title">En nuestro atelier de Altea terminamos cada producto a mano</div>
+        <div class="atelier-text-body">Los lavamos y secamos al aire libre, recortamos y rematamos los flecos y planchamos cada pieza.</div>
+      </div>
+      <div class="atelier-pull">"Cada paso de nuestra produccion se lleva a cabo de forma individual."</div>
+    </div>
+    <div class="atelier-video">
+      <div class="atelier-video-tag">Video completo</div>
+      <div class="atelier-video-label">El taller de Altea<br>Telares · Hilos · Manos · El desorden real</div>
+    </div>
+  </div>
+
+  <!-- MATERIALES + PILARES -->
+  <div class="section">
+    <div class="pillars">
+      <div class="pillar"><div class="pillar-num">01</div><div class="pillar-text">Materias primas<br>excepcionales</div></div>
+      <div class="pillar"><div class="pillar-num">02</div><div class="pillar-text">Diseno<br>atemporal</div></div>
+      <div class="pillar"><div class="pillar-num">03</div><div class="pillar-text">Hecho de forma tradicional<br>y justa, en Espana</div></div>
+    </div>
+    <div class="section-eyebrow">Los materiales</div>
+    <div class="section-title" style="max-width:620px">Las mejores materias primas del mundo</div>
+    <p style="font-size:14px;color:var(--mid);line-height:1.8;max-width:580px;margin-top:18px">Nuestros proveedores fabrican especialmente para nosotros hilos de fantasia, en una amplia gama de colores cada temporada. La eleccion del hilo es lo primero de cada coleccion.</p>
+    <div class="materials-grid">
+      <div class="material-item"><div class="material-swatch"></div><div class="material-name">Cashmere</div><div class="material-line">Suavidad y calor.</div></div>
+      <div class="material-item"><div class="material-swatch" style="background:linear-gradient(160deg,#E4DDD4 0%,#C8BEA8 100%)"></div><div class="material-name">Seda</div><div class="material-line">Resistencia y caida.</div></div>
+      <div class="material-item"><div class="material-swatch" style="background:linear-gradient(160deg,#DDD8D0 0%,#C0B8A8 100%)"></div><div class="material-name">Baby Alpaca</div><div class="material-line">Ligereza con cuerpo.</div></div>
+      <div class="material-item"><div class="material-swatch" style="background:linear-gradient(160deg,#D8D0C4 0%,#B8AA98 100%)"></div><div class="material-name">Pelo de Camello</div><div class="material-line">Calor sin peso.</div></div>
+    </div>
+  </div>
+
+  <!-- TELARES -->
+  <div class="looms">
+    <div class="looms-layout">
+      <div class="looms-image"><div class="looms-image-label">Imagen vertical<br>Telar tradicional</div></div>
+      <div>
+        <div class="section-eyebrow">Los telares</div>
+        <div class="section-title">Tradicionales, por una razon</div>
+        <p class="looms-body" style="margin-top:20px">Nuestros telares tradicionales nos permiten obtener productos exclusivos y lograr acabados de la maxima calidad, con bordes sin costuras. Todo se produce localmente en nuestro propio taller en Espana, en tiradas limitadas.</p>
+        <div class="looms-pull">"Tejemos cada una de nuestras piezas con total atencion."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VICTORIA -->
+  <div class="heritage">
+    <div class="heritage-layout">
+      <div class="heritage-image"><div class="heritage-image-label">Retrato Victoria<br>En el taller</div></div>
+      <div>
+        <div class="section-eyebrow">La historia</div>
+        <div class="section-title">Victoria Munoz</div>
+        <p class="heritage-body" style="margin-top:20px">Victoria Munoz, fundadora de la marca, comenzo su trayectoria en el sector textil a los 17 anos. Aprendio a tejer y a combinar colores utilizando hilos de alta calidad trabajando en un taller textil artesanal de Madrid.</p>
+        <div class="heritage-clients">
+          <div class="heritage-clients-label">Colecciones exclusivas para</div>
+          <div class="heritage-clients-list">
+            <span class="heritage-client">Loewe</span>
+            <span class="heritage-client">Carolina Herrera</span>
+            <span class="heritage-client">Tissa Fontaneda</span>
+            <span class="heritage-client">Fortnum & Mason</span>
+            <span class="heritage-client">Crimson Paris</span>
+            <span class="heritage-client">Javier Larrainzar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOWROOMS -->
+  <div class="section" style="border-top:1px solid var(--border)">
+    <div class="section-eyebrow">Donde encontrarnos</div>
+    <div class="section-title" style="font-size:34px">Donde encontrarnos</div>
+    <div class="showrooms-grid">
+      <div>
+        <div class="showroom-image"><div class="showroom-image-label">Showroom Altea</div></div>
+        <div class="showroom-city">Altea</div>
+        <div class="showroom-name">Atelier y tienda</div>
+        <div class="showroom-detail">Abierto todo el ano<br>[Direccion]<br>[Horario]</div>
+      </div>
+      <div>
+        <div class="showroom-image"><div class="showroom-image-label">Hotel Santo Mauro</div></div>
+        <div class="showroom-city">Madrid</div>
+        <div class="showroom-name">Santo Mauro</div>
+        <div class="showroom-detail">Calle Zurbano 36<br>Diciembre · 11h a 21h</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCESO + CONTACTO -->
+  <div class="bottom-strip">
+    <div class="acceso">
+      <div class="acceso-eyebrow">Lista privada</div>
+      <div class="acceso-title">Acceso antes que nadie</div>
+      <div class="acceso-sub">Cada coleccion es una tirada limitada. Una vez agotada, no se repite. Los miembros de la lista reciben acceso antes de que salga al publico.</div>
+      <div class="acceso-form"><input class="acceso-input" type="email" placeholder="Tu correo electronico"><button class="acceso-btn">Unirme</button></div>
+      <div class="acceso-gdpr">Al registrarte aceptas recibir comunicaciones de Talhora. Puedes darte de baja en cualquier momento. GDPR UE.</div>
+    </div>
+    <div class="contacto">
+      <div class="contacto-title">Contacto</div>
+      <div class="contacto-row"><div class="contacto-icon">W</div><div><div class="contacto-label">WhatsApp</div><div class="contacto-desc">Canal directo para clientas con relacion previa con Victoria.</div><div class="contacto-cta">Abrir WhatsApp</div></div></div>
+      <div class="contacto-row"><div class="contacto-icon">@</div><div><div class="contacto-label">Email</div><div class="contacto-desc">Nuevas consultas sobre colecciones, pedidos o visitas.</div><div class="contacto-cta">Enviar mensaje</div></div></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-anagram"><img src="data:image/png;base64,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" alt="Victoria de Talhora"></div>
+    <div class="footer-center">
+      <span class="footer-link">Mantas</span><span class="footer-link">Collares</span><span class="footer-link">Chales</span><span class="footer-link">Fulares</span><span class="footer-link">@talhora</span>
+    </div>
+    <div class="footer-right">Altea · Madrid<br>Espana</div>
+  </footer>
+
+</div>
+
+<!-- PRODUCT PAGE -->
+<div id="view-product-frame">
+  <div class="pp-nav">
+    <div class="back-btn" onclick="showView('home')"><span style="font-size:14px">&#8592;</span><span>Volver a Mantas</span></div>
+    <div class="nav-anagram"><img src="data:image/png;base64,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" alt="Victoria de Talhora"></div>
+    <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid)">Cesta (0)</div>
+  </div>
+  <div class="pp-layout">
+    <div class="pp-gallery">
+      <div class="pp-gallery-label">Imagen de producto<br>Vertical 3:4</div>
+      <div class="pp-thumbs"><div class="pp-thumb active"></div><div class="pp-thumb"></div><div class="pp-thumb"></div><div class="pp-thumb"></div></div>
+    </div>
+    <div class="pp-info">
+      <div class="pp-breadcrumb">Mantas / Cachemira</div>
+      <div class="pp-name">Manta Tres Fibras</div>
+      <div class="pp-material">Cachemira · Seda · Pelo de camello</div>
+      <div class="pp-price">€ 680</div>
+      <div class="pp-stock">18 unidades restantes de una tirada de 100</div>
+      <div class="pp-divider"></div>
+      <div class="pp-desc">[Descripcion de la pieza, voz de la casa, dos o tres lineas.]</div>
+      <div class="pp-pull">"[Cita de Victoria especifica a esta pieza, si la hay.]"</div>
+      <button class="btn-buy">Anadir a la cesta</button>
+      <div class="pp-details">
+        <div class="pp-detail-row"><span class="pp-detail-label">Material</span><span class="pp-detail-value">Cachemira, Seda, Camello</span></div>
+        <div class="pp-detail-row"><span class="pp-detail-label">Fabricacion</span><span class="pp-detail-value">Tejido a mano, Altea</span></div>
+        <div class="pp-detail-row"><span class="pp-detail-label">Tirada</span><span class="pp-detail-value">Limitada, 100 unidades</span></div>
+        <div class="pp-detail-row"><span class="pp-detail-label">Cuidados</span><span class="pp-detail-value">Lavado en frio a mano</span></div>
+        <div class="pp-detail-row"><span class="pp-detail-label">Envio</span><span class="pp-detail-value">Internacional</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showView(v) {
+  document.getElementById('view-home-frame').style.display = v === 'home' ? 'block' : 'none';
+  document.getElementById('view-product-frame').style.display = v === 'product' ? 'block' : 'none';
+  document.querySelectorAll('.view-btn').forEach((b,i) => b.classList.toggle('active', (v==='home'&&i===0)||(v==='product'&&i===1)));
+  window.scrollTo(0,0);
+}
+</script>
+
+</body>
+</html>
